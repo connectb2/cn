@@ -1,7 +1,7 @@
-mport java.net.*;
+import java.net.*;
 import java.io.*;
 
-public class UDPServer {
+public class UDP_Server {
     public static void main(String[] args) {
         try {
             String message = args[0];
@@ -18,3 +18,5 @@ public class UDPServer {
             e.printStackTrace();
         }
     }
+
+}

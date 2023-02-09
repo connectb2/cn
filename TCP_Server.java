@@ -1,19 +1,18 @@
-package practice_programs;
-
 import java.net.*;
 import java.io.*;
 
-public class TCPServer {
+public class TCP_Server {
     public static void main(String[] args) throws Exception {
         ServerSocket sersock = new ServerSocket(4000);
         System.out.println("Server Connected, waiting for client");
+
         Socket sock = sersock.accept();
         System.out.println("Connection successful, waiting for chatting");
-        InputStream iStream = sock.getInputStream();
-        BufferedReader nameRead = new BufferedReader(new InputStreamReader(iStream));
+        BufferedReader nameRead = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+
         String fname = nameRead.readLine();
-        OutputStream ostream = sock.getOutputStream();
-        PrintWriter pwrite = new PrintWriter(ostream, true);
+        PrintWriter pwrite = new PrintWriter(sock.getOutputStream(), true);
+
         try {
             BufferedReader contentRead = new BufferedReader(new FileReader(fname));
             String str;
@@ -21,9 +20,11 @@ public class TCPServer {
                 pwrite.println(str);
             }
             contentRead.close();
-        } catch (FileNotFoundException e) {
+        } 
+        catch (FileNotFoundException e) {
             pwrite.println("File does not exist");
-        } finally {
+        } 
+        finally {
             System.out.println("Closing connection");
             pwrite.close();
             nameRead.close();
@@ -31,3 +32,4 @@ public class TCPServer {
             sersock.close();
         }
     }
+}
